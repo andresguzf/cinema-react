@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { User, Film, Copy, Check, RefreshCw, AlertCircle } from 'lucide-react';
 import type { ChatMessage as ChatMessageType } from '../types/cinema';
 import { useChatStore } from '../stores/chatStore';
+import { MarkdownRenderer } from './MarkdownRenderer';
 
 interface ChatMessageProps {
   message: ChatMessageType;
@@ -51,7 +52,7 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
         </div>
 
         {/* Message Body */}
-        <div className="text-sm sm:text-base text-slate-800 dark:text-slate-100 leading-relaxed break-words whitespace-pre-wrap font-normal">
+        <div className="text-sm sm:text-base text-slate-800 dark:text-slate-100 leading-relaxed font-normal">
           {message.status === 'sending' && !message.content ? (
             <div className="flex items-center gap-1.5 py-1 text-slate-400 dark:text-slate-500">
               <span className="w-2 h-2 rounded-full bg-amber-500 animate-bounce"></span>
@@ -60,7 +61,7 @@ export const ChatMessage = ({ message }: ChatMessageProps) => {
               <span className="text-xs ml-2 font-medium">Consultando cartelera...</span>
             </div>
           ) : (
-            message.content
+            <MarkdownRenderer content={message.content} />
           )}
         </div>
 
